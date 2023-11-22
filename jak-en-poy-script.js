@@ -1,6 +1,8 @@
+//declaration of inital variables
 let choices = ['rock' , 'paper' , 'scissors'];
 let anotherRound = true;
 
+//looping the game
 while (anotherRound) {
     let randomChoice = Math.floor(Math.random() * choices.length)
     let computerChoice = choices[randomChoice];
