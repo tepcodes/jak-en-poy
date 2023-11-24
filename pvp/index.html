@@ -3,29 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rock Paper Scissors</title>
-    <style>
-        #result {
-            margin-top: 20px;
-            font-weight: bold;
-        }
-    </style>
+    <title>Jaken Power</title>
 </head>
 <body>
-    <h1>Rock Paper Scissors</h1>
+    <header>Jaken Power</header>
+    <main>
+        <section id="name"></section>
+        <section id="healthPoints">
+            <div id="userHP">Your HP: 50</div>
+            <div id="monsterHP">Monster HP: 50</div>
+        </section>
+        
+        <section id="actions">
+            <div>Select an action: </div>
+            <button id="attack">Attack</button>
+            <button id="defend">Defend</button>
+            <button id="heal">Heal</button>
+        </section>
 
-    <button id="rockBtn">Rock</button>
-    <button id="paperBtn">Paper</button>
-    <button id="scissorsBtn">Scissors</button>
+        <section id="damageCalculation">
 
-    <div id="computer-choice"></div>
-    <div id="result"></div>
-    <div id="score">
-        <div class="player-score"></div>
-        <div class="computer-score"></div>
-    </div>
-    <div id="messageBoard"></div>
-    <script src="./jak-en-poy-script.js" defer></script>
-    
+        </section>
+
+        <section id="gameLog">
+
+        </section>
+        
+    </main>
+    <script src="./jakenpoy-pvc.js" defer></script>
+    <footer class="footer">
+        <a href="https://github.com/tepcodes"
+        target="_blank">- tepcodes -
+        <br>©2023</a>
+    </footer>
 </body>
 </html>
