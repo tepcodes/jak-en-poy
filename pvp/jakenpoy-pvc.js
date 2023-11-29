@@ -2,85 +2,108 @@
 let userHealthPoints = 50;
 let monsterHealthPoints = 50;
 let monsterAction = '';
+let healCounter = 3;
+
+// Event listeners for user actions (assuming buttons with ids 'attack', 'defend', 'heal')
+document.getElementById('attack').addEventListener('click', function () {
+    getUserAction('Attack');
+});
+
+document.getElementById('defend').addEventListener('click', function () {
+    getUserAction('Defend');
+});
+
+document.getElementById('heal').addEventListener('click', function () {
+    if (healCounter > 0) {
+        getUserAction('Heal');
+        healCounter--;
+        document.querySelector('#heal').textContent = `Heal (${healCounter})`;
+    }
+});
+
+// Function to get user action based on the clicked button
+function getUserAction(action) {
+    chooseMonsterAction();
+    calculateDamage(action, monsterAction);
+}
 
 // Function to choose a random action for the monster
 function chooseMonsterAction() {
-    let actions = ['Attack', 'Defend', 'Heal'];
+    let actions = ['Attack', 'Attack', 'Attack', 'Attack', 'Defend', 'Defend', 'Defend', 'Defend', 'Heal', 'Heal'];
     let actionIndex = Math.floor(Math.random() * actions.length);
     monsterAction = actions[actionIndex];
 }
 
-// Function to get user action based on the clicked button
-function getUserAction(action) {
-    calculateDamage(action, monsterAction);
-}
-
-// Function to get a random monster action and play the game
-function playGame() {
-    // Randomize monster action for each iteration
-    chooseMonsterAction();
-}
-    // Event listeners for user actions (assuming buttons with ids 'attack', 'defend', 'heal')
-    document.getElementById('attack').addEventListener('click', function () {
-        getUserAction('Attack');
-    });
-
-    document.getElementById('defend').addEventListener('click', function () {
-        getUserAction('Defend');
-    });
-
-    document.getElementById('heal').addEventListener('click', function () {
-        getUserAction('Heal');
-    });
-
-
-// Call playGame() to start the initial game
-playGame();
-
 // Function to calculate damage and update health points
 function calculateDamage(userAction, monsterAction) {
-    const attackAction = 5;
-    const healAction = 10;
-    chooseMonsterAction();
+    const userDamage = [5, 5, 5, 5, 5, 15, 10, 10, 10, 15];
+    const monsterDamage = [5, 5, 5, 5, 10, 10, 10, 20, 15, 15];
+    
+    // Random damage for both user and monster
+    let userRandomDamage = Math.floor(Math.random() * userDamage.length);
+    let monsterRandomDamage = Math.floor(Math.random() * monsterDamage.length);
+
+    let userAttackDamage = userDamage[userRandomDamage];
+    let monsterAttackDamage = monsterDamage[monsterRandomDamage];
+
+    const criticalChance = 0.5;
+
+    if (Math.random() < criticalChance) {
+        const userBonusDamage = userAttackDamage * 0.50;
+        const monsterBonusDamage = monsterAttackDamage * 0.50;
+
+        userAttackDamage += userBonusDamage;
+        monsterAttackDamage += monsterBonusDamage;
+
+        console.log('Critical Hit!'); // You can modify this to display a message or take other actions for a critical hit.
+    }
+
+    const healAction = 20;
+
+    let userLog = '';
+    let monsterLog = '';
 
     if (userAction === 'Attack' && monsterAction === 'Attack') {
-        userHealthPoints -= attackAction;
-        monsterHealthPoints -= attackAction;
-        updateHP();
-        displayGameLog(userAction, monsterAction);
+        userHealthPoints -= monsterAttackDamage;
+        monsterHealthPoints -= userAttackDamage;
+        userLog = `deals ${userAttackDamage} damage.`;
+        monsterLog = `deals ${monsterAttackDamage} damage.`;
     } else if (
         userAction === 'Attack' && monsterAction === 'Defend' ||
         userAction === 'Defend' && monsterAction === 'Defend' ||
         userAction === 'Defend' && monsterAction === 'Attack'
     ) {
-        // No change in health points
-        updateHP();
-        displayGameLog(userAction, monsterAction);
+        userLog = `deals 0 damage.`;
+        monsterLog = `receives 0 damage.`;
     } else if (userAction === 'Attack' && monsterAction === 'Heal') {
         monsterHealthPoints += healAction;
-        monsterHealthPoints -= attackAction;
-        updateHP();
-        displayGameLog(userAction, monsterAction);
+        monsterHealthPoints -= userAttackDamage;
+        userLog = `deals ${userAttackDamage} damage.`;
+        monsterLog = `heals ${healAction} HP.`;
     } else if (userAction === 'Defend' && monsterAction === 'Heal') {
         monsterHealthPoints += healAction;
-        updateHP();
-        displayGameLog(userAction, monsterAction);
+        userLog = `receives 0 damage.`;
+        monsterLog = `heals ${healAction} HP.`;
     } else if (userAction === 'Heal' && monsterAction === 'Attack') {
         userHealthPoints += healAction;
-        userHealthPoints -= attackAction;
-        updateHP();
-        displayGameLog(userAction, monsterAction);
+        userHealthPoints -= monsterAttackDamage;
+        userLog = `heals ${healAction} HP.`;
+        monsterLog = `deals ${monsterAttackDamage} damage.`;
     } else if (userAction === 'Heal' && monsterAction === 'Defend') {
         userHealthPoints += healAction;
-        updateHP();
-        displayGameLog(userAction, monsterAction);
+        userLog = `heals ${healAction} HP.`;
+        monsterLog = `receives 0 damage.`;
     } else if (userAction === 'Heal' && monsterAction === 'Heal') {
         userHealthPoints += healAction;
         monsterHealthPoints += healAction;
-        updateHP();
-        displayGameLog(userAction, monsterAction);
+        userLog = `heals ${healAction} HP.`;
+        monsterLog = `heals ${healAction} HP.`;
     }
+
+    updateHP();
+    displayGameLog(userAction, userLog, monsterAction, monsterLog);
 }
+
 
 // Function to update health points on the UI
 function updateHP() {
@@ -102,20 +125,24 @@ function checkGameEnd() {
     if (userHealthPoints <= 0 || monsterHealthPoints <= 0) {
         userHealthPoints = 50;
         monsterHealthPoints = 50;
+        healCounter = 3;
         document.querySelector('#gameResult').textContent = `Game Over! Restarting...`;
         playGame(); // Restart the game
     }
 }
 
 // Function to display game log with the latest entry at the top
-function displayGameLog(userAction, monsterAction) {
+function displayGameLog(userAction, userLog, monsterAction, monsterLog) {
     let gameLogElement = document.getElementById('gameLog');
     let logEntry = document.createElement('p');
-    logEntry.textContent = `The user ${userAction.toLowerCase()}ed. The monster ${monsterAction.toLowerCase()}ed.`;
+    logEntry.textContent = `The user ${userAction.toLowerCase()}ed, ${userLog} The monster ${monsterAction.toLowerCase()}ed, ${monsterLog}`;
     gameLogElement.insertBefore(logEntry, gameLogElement.firstChild);
-    
+
     // Limit the number of paragraphs to a maximum of 10
     if (gameLogElement.childElementCount > 10) {
         gameLogElement.removeChild(gameLogElement.lastChild);
     }
 }
+
+// Call playGame() to start the initial game
+playGame();
