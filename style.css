@@ -1,0 +1,119 @@
+/* * {border: red solid;} */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, sans-serif;
+    background-color: #474440;
+    color: ivory;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: chocolate; 
+    color: ivory; 
+    padding: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 30px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    gap: 10px;
+    padding: 20px;
+    margin-top: 7%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    margin: 0;
+}
+
+
+#healthPoints {
+    display: flex;
+    flex-direction: row;
+    margin-top: 50px;
+    justify-content: space-evenly;
+}
+
+#userHP,
+#monsterHP {
+    background-color: green; 
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px;
+    font-size: larger;
+}
+
+#actions,
+#gameResult,
+#gameLog {
+    background-color: #474440; 
+    padding: 15px;
+    border-radius: 10px;
+}
+
+button {
+    margin: 5px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #101010;
+}
+    #attack {
+        background-color:lightcoral;
+    }
+    #defend {
+        background-color: burlywood;
+    }
+    #heal {
+        background-color: darkseagreen;
+    }
+
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: chocolate; 
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* for smaller screens */
+@media screen and (max-width: 600px) {
+    main {
+        margin-top: 10%;
+    }
+
+    #healthPoints {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    #userHP, #monsterHP {
+        margin: 5px 0;
+    }
+
+    #actions, #gameResult, #gameLog {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}

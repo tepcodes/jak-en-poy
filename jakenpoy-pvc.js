@@ -120,12 +120,41 @@ class Game {
     }
 
     updateUserHP() {
-        this.userHPElement.textContent = `Your HP: ${this.userHealthPoints}`;
+        let backgroundColor = '';
+    
+        if (this.userHealthPoints > 50) {
+            backgroundColor = 'brightgreen';
+        } else if (this.userHealthPoints > 24) {
+            backgroundColor = 'green';
+        } else if (this.userHealthPoints > 10) {
+            backgroundColor = 'orange';
+        } else {
+            backgroundColor = 'red';
+        }
+    
+        this.userHPElement.textContent = `Your HP: ${this.userHealthPoints.toFixed(2)}`;
+        this.userHPElement.style.backgroundColor = backgroundColor;
     }
-
+    
     updateMonsterHP() {
-        this.monsterHPElement.textContent = `Monster HP: ${this.monsterHealthPoints}`;
+        let backgroundColor = '';
+    
+        if (this.monsterHealthPoints > 50) {
+            backgroundColor = 'brightgreen';
+        } else if (this.monsterHealthPoints > 24) {
+            backgroundColor = 'green';
+        } else if (this.monsterHealthPoints > 10) {
+            backgroundColor = 'yelloworange';
+        } else if (this.monsterHealthPoints > 0) {
+            backgroundColor = 'orange'
+        } else {
+            backgroundColor = 'red';
+        }
+    
+        this.monsterHPElement.textContent = `Monster HP: ${this.monsterHealthPoints.toFixed(2)}`;
+        this.monsterHPElement.style.backgroundColor = backgroundColor;
     }
+    
 
     checkGameEnd() {
         if (!this.gameEnded && (this.userHealthPoints <= 0 || this.monsterHealthPoints <= 0)) {
@@ -144,31 +173,44 @@ class Game {
 
     displayResults() {
         let resultText = '';
-        if (this.userHealthPoints > this.monsterHealthPoints) {
+        let backgroundColor = '';
+    
+        if (this.userHealthPoints > 0) {
             resultText = 'You have fought valiantly and slayed the monster!';
-        } else if (this.userHealthPoints < this.monsterHealthPoints) {
-            resultText = 'Your feeble body did not stand a chance!';
-        } else if (this.userHealthPoints <= 0 || this.monsterHealthPoints <= 0){
+            backgroundColor = 'green';
+        } else if (this.userHealthPoints <= 0 && this.monsterHealthPoints <= 0) {
             resultText = "Martyr! You joined the monster to the grave!";
+            backgroundColor = 'teal';
+        } else if (this.userHealthPoints < 1) {
+            resultText = 'Your feeble body did not stand a chance!';
+            backgroundColor = 'red';
         }
+    
         this.gameResultElement.textContent = `${resultText}`;
+        this.gameResultElement.style.backgroundColor = backgroundColor;
     }
+    
 
     endGame() {
         let playAgainButton = document.createElement('button');
         playAgainButton.textContent = 'Play Again';
-
+    
+        playAgainButton.style.backgroundColor = '#474440'; // Set the background color
+        playAgainButton.style.color = 'ivory';
+    
         playAgainButton.addEventListener('click', () => {
             this.gameResultElement.textContent = '';
             this.clearGameLog();
             this.playGame();
         });
-
+    
         this.gameResultElement.appendChild(playAgainButton);
     }
+    
 
     clearGameLog() {
         this.gameLogElement.innerHTML = '';
+        this.gameResultElement.style.backgroundColor = '';
     }
 
     displayGameLog(userAction, userLog, monsterAction, monsterLog) {
@@ -176,7 +218,7 @@ class Game {
         logEntry.textContent = `The user ${userAction.toLowerCase()}ed, ${userLog} The monster ${monsterAction.toLowerCase()}ed, ${monsterLog}`;
         this.gameLogElement.insertBefore(logEntry, this.gameLogElement.firstChild);
 
-        if (this.gameLogElement.childElementCount > 10) {
+        if (this.gameLogElement.childElementCount > 9) {
             this.gameLogElement.removeChild(this.gameLogElement.lastChild);
         }
     }
