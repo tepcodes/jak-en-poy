@@ -5,9 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jaken Power</title>
     <link rel="stylesheet" href="./style.css">
+    <style>
+        
+      </style>
+      
 </head>
 <body>
-    <header>Janken Power</header>
+    <div id="introModal" class="modal">
+        <div class="modal-content">
+            <p>Our village is haunted by a merciless monster. This land was once vibrant but now trembles in fear. 
+                Jaken has chosen you to be the hero our people seek.</p>
+            
+            <p>The power of the village is bestowed upon you. Wield this new-found power to end the reign of destruction. 
+                Face the darkness, make wise decisions, and become the legend our village needs.</p>
+            
+            <p>The time for valor is now. With the power given upon you, let your heart guide you. The fate of our village rests in your hands. 
+                Slay the monster and bring peace to this land, once and for all!</p>
+            
+
+          <!-- Add a button to close the modal and start the game -->
+          <button id="startGameBtn">Enter Battle!</button>
+        </div>
+      </div>
+    <header>Jaken Power</header>
     <main>
         <section id="healthPoints">
             <div id="userHP">Your HP: 50</div>
@@ -37,5 +57,23 @@
         target="_blank">- tepcodes -
         <br>©2023</a>
     </footer>
+    <script>
+        // Wait for the DOM to be fully loaded
+        document.addEventListener("DOMContentLoaded", function() {
+          // Get the modal and the button to close it
+          var modal = document.getElementById("introModal");
+          var startGameBtn = document.getElementById("startGameBtn");
+      
+          // Show the modal
+          modal.style.display = "flex";
+      
+          // Close the modal and start the game when the button is clicked
+          startGameBtn.addEventListener("click", function() {
+            modal.style.display = "none";
+            playGame(); // Call your existing playGame function to start the game
+          });
+        });
+      </script>
+      
 </body>
 </html>

@@ -1,3 +1,5 @@
+// alert('Welcome to Jaken Power! The village of Jaken has been distrought by the vicious monster. He is reigning terror among the dwellers. Our people needs a hero to slay this monster once and for and bring lasting peace in our land! You chose to be here but the land chose you!')
+
 class Game {
     constructor() {
         this.userHealthPoints = 50;
@@ -123,11 +125,15 @@ class Game {
         let backgroundColor = '';
     
         if (this.userHealthPoints > 50) {
-            backgroundColor = 'brightgreen';
-        } else if (this.userHealthPoints > 24) {
+            backgroundColor = 'purple';
+        } else if (this.userHealthPoints > 30) {
             backgroundColor = 'green';
+        } else if (this.userHealthPoints > 24) {
+            backgroundColor = 'olivedrab';
         } else if (this.userHealthPoints > 10) {
             backgroundColor = 'orange';
+        } else if (this.userHealthPoints > 0) {
+            backgroundColor = 'goldenrod'
         } else {
             backgroundColor = 'red';
         }
@@ -140,13 +146,15 @@ class Game {
         let backgroundColor = '';
     
         if (this.monsterHealthPoints > 50) {
-            backgroundColor = 'brightgreen';
-        } else if (this.monsterHealthPoints > 24) {
+            backgroundColor = 'purple';
+        } else if (this.monsterHealthPoints > 30) {
             backgroundColor = 'green';
+        } else if (this.monsterHealthPoints > 24) {
+            backgroundColor = 'olivedrab';
         } else if (this.monsterHealthPoints > 10) {
-            backgroundColor = 'yelloworange';
+            backgroundColor = 'orange';
         } else if (this.monsterHealthPoints > 0) {
-            backgroundColor = 'orange'
+            backgroundColor = 'goldenrod'
         } else {
             backgroundColor = 'red';
         }
