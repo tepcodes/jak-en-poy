@@ -20,7 +20,7 @@ function playGame(playerChoice) {
     displayComputerChoice(computerChoice);
 
     let result = determineResult(computerChoice, playerChoice);
-    displayResult();
+    displayResult(result);
 
     updateScore(computerChoice, playerChoice);
     displayScores();
@@ -33,19 +33,7 @@ function getRandomChoice() {
     return choices[randomIndex];
 }
 
-function determineResult(computer, player) {
-    if (computer === player) {
-        return 'It\'s a draw!';
-    } else if (
-        (computer === 'rock' && player === 'scissors') ||
-        (computer === 'paper' && player === 'rock') ||
-        (computer === 'scissors' && player === 'paper')
-    ) {
-        return 'You lose!';
-    } else {
-        return 'You win!';
-    }
-}
+
 
 function updateScore(computer, player) {
     if (computer === player) {
