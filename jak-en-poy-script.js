@@ -3,7 +3,7 @@ let choices = ['rock', 'paper', 'scissors'];
 let playerScore = 0;
 let computerScore = 0;
 
-document.getElementById('rockBtn').addEventListener('click', function () {
+document.getElementById('rockBtn').('click', function () {
     playGame('rock');
 });
 
@@ -50,7 +50,7 @@ function determineResult(computer, player) {
 function updateScore(computer, player) {
     if (computer === player) {
     } else if (
-        (computer === 'rock'  player === 'scissors') ||
+        (computer === 'rock' && player === 'scissors') ||
         (computer === 'paper' && player === 'rock') ||
         (computer === 'scissors' && player === 'paper')
     ) {
