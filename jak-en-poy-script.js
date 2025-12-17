@@ -50,7 +50,7 @@ function determineResult(computer, player) {
 function updateScore(computer, player) {
     if (computer === player) {
     } else if (
-        (computer === 'rock' && player === 'scissors') ||
+        (computer === 'rock'  player === 'scissors') ||
         (computer === 'paper' && player === 'rock') ||
         (computer === 'scissors' && player === 'paper')
     ) {
