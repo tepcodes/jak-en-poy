@@ -21,11 +21,7 @@ class Game {
         this.playGame();
     }
 
-    addEventListeners() {
-        document.getElementById'attack'.addEventListener('click', () => this.getUserAction('Attack'));
-        document.getElementById('defend').addEventListener('click', () => this.getUserAction('Defend'));
-        document.getElementById('heal').addEventListener('click', () => this.heal());
-    }
+    
 
     getUserAction(action) {
         this.chooseMonsterAction();
