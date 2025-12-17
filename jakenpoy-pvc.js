@@ -38,7 +38,83 @@ class Game {
         this.monsterAction = actions[actionIndex];
     }
 
+    calculateDamage(userAction, monsterAction) {
+        const userDamage = [5, 8, 10, 10, 10, 12, 12, 12, 15, 15, 15, 20, 20];
+        const monsterDamage = [5, 5, 8, 8, 10, 10, 10, 12, 12, 12, 12, 15, 15, 15, 20];
 
+        const userRandomDamage = Math.floor(Math.random() * userDamage.length);
+        const monsterRandomDamage = Math.floor(Math.random() * monsterDamage.length);
+
+        let userAttackDamage = userDamage[userRandomDamage];
+        let monsterAttackDamage = monsterDamage[monsterRandomDamage];
+
+        const criticalChance = 0.5;
+
+        if (Math.random() < criticalChance) {
+            const userBonusDamage = userAttackDamage * 0.50;
+            const monsterBonusDamage = monsterAttackDamage * 0.50;
+
+            userAttackDamage += userBonusDamage;
+            monsterAttackDamage += monsterBonusDamage;
+
+            console.log("Critical hit!" + userBonusDamage);
+            console.log("Critical hit!" + monsterBonusDamage);
+        }
+
+        const healAction = 20;
+        const userHealBonus = Math.abs(this.userHealthPoints - 50) * 0.2;
+        const userHealAction = healAction + userHealBonus;        
+
+        const userDefend = monsterAttackDamage * 0.4;
+
+        let userLog = '';
+        let monsterLog = '';
+
+        if (userAction === 'Attack' && monsterAction === 'Attack') {
+            this.userHealthPoints -= monsterAttackDamage;
+            this.monsterHealthPoints -= userAttackDamage;
+            userLog = `deals ${userAttackDamage} damage.`;
+            monsterLog = `deals ${monsterAttackDamage} damage.`;
+        } else if (userAction === 'Attack' && monsterAction === 'Defend') {
+            userLog = `deals 0 damage.`;
+            monsterLog = `receives 0 damage.`;
+        } else if (userAction === 'Defend' && monsterAction === 'Defend') {
+            userLog = `blocks 0 damage.`;
+            monsterLog = `receives 0 damage.`;
+        } else if (userAction === 'Defend' && monsterAction === 'Attack') {
+            this.userHealthPoints += userDefend;
+            this.userHealthPoints -= monsterAttackDamage;
+            userLog = `blocks ${userDefend} damage.`;
+            monsterLog = `deals ${monsterAttackDamage} damage.`;
+        } else if (userAction === 'Attack' && monsterAction === 'Heal') {
+            this.monsterHealthPoints += healAction;
+            this.monsterHealthPoints -= userAttackDamage;
+            userLog = `deals ${userAttackDamage} damage.`;
+            monsterLog = `heals ${healAction} HP.`;
+        } else if (userAction === 'Defend' && monsterAction === 'Heal') {
+            this.monsterHealthPoints += healAction;
+            userLog = `blocks 0 damage.`;
+            monsterLog = `heals ${healAction} HP.`;
+        } else if (userAction === 'Heal' && monsterAction === 'Attack') {
+            this.userHealthPoints += userHealAction;
+            this.userHealthPoints -= monsterAttackDamage;
+            userLog = `heals ${userHealAction} HP.`;
+            monsterLog = `deals ${monsterAttackDamage} damage.`;
+        } else if (userAction === 'Heal' && monsterAction === 'Defend') {
+            this.userHealthPoints += userHealAction;
+            userLog = `heals ${userHealAction} HP.`;
+            monsterLog = `receives 0 damage.`;
+        } else if (userAction === 'Heal' && monsterAction === 'Heal') {
+            this.userHealthPoints += userHealAction;
+            this.monsterHealthPoints += healAction;
+            userLog = `heals ${userHealAction} HP.`;
+            monsterLog = `heals ${healAction} HP.`;
+        }
+
+        this.updateHP();
+        this.displayGameLog(userAction, userLog, monsterAction, monsterLog);
+        this.checkGameEnd();
+    }
 
     updateHP() {
         this.updateUserHP();
