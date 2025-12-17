@@ -22,7 +22,7 @@ class Game {
     }
 
     addEventListeners() {
-        document.getElementById('attack').addEventListener('click', () => this.getUserAction('Attack'));
+        document.getElementById'attack'.addEventListener('click', () => this.getUserAction('Attack'));
         document.getElementById('defend').addEventListener('click', () => this.getUserAction('Defend'));
         document.getElementById('heal').addEventListener('click', () => this.heal());
     }
