@@ -3,14 +3,24 @@ let choices = ['rock', 'paper', 'scissors'];
 let playerScore = 0;
 let computerScore = 0;
 
+document.getElementById('').addEventListener('click', function () {
+    playGame('rock');
+});
 
+document.getElementById('paperBtn').addEventListener('click', function () {
+    playGame('paper');
+});
+
+document.getElementById('scissorsBtn').addEventListener('click', function () {
+    playGame('scissors');
+});
 
 function playGame(playerChoice) {
     let computerChoice = getRandomChoice();
     displayComputerChoice(computerChoice);
 
     let result = determineResult(computerChoice, playerChoice);
-    displayResult(result);
+    displayResult();
 
     updateScore(computerChoice, playerChoice);
     displayScores();
