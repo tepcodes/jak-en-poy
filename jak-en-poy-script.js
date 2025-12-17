@@ -3,17 +3,7 @@ let choices = ['rock', 'paper', 'scissors'];
 let playerScore = 0;
 let computerScore = 0;
 
-document.getElementById('rockBtn').('click', function () {
-    playGame('rock');
-});
 
-document.getElementById('paperBtn').addEventListener('click', function () {
-    playGame('paper');
-});
-
-document.getElementById('scissorsBtn').addEventListener('click', function () {
-    playGame('scissors');
-});
 
 function playGame(playerChoice) {
     let computerChoice = getRandomChoice();
